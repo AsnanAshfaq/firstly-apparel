@@ -21,18 +21,41 @@ function Order() {
   const { Loading, MyOrders, handleMyOrders } = useMainState();
 
   useEffect(() => {
-    // if (Loading) {
-    //   console.log("Loading")
+    if (Loading) {
+      console.log("My Orders");
+      console.log(MyOrders);
       handleMyOrders();
-    // }
-  });
+    }
+  }, [MyOrders]);
 
   return (
     <div className="col-5" style={{ marginTop: 30 }}>
       <h4>My Orders </h4>
-      <p>Total Orders : length of the array being passed </p>
+      <p>Total Orders : </p>
 
-      {MyOrders.map((order) => {
+      {Loading === false ? (
+        MyOrders.map((order) => (
+          <div className="row">
+            <div
+              className="col card"
+              style={{
+                backgroundColor: "white",
+                minHeight: 200,
+                color: "#1F2833",
+                fontSize: 18,
+              }}
+            >
+              <p>Order ID: {order.id}</p>
+              <p>Bootstrap Card goes here</p>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>Loading</p>
+      )}
+
+      {/* {MyOrders.map((order) => {
+        console.log("order mapping", order.id);
         return (
           <div className="row">
             <div
@@ -49,7 +72,7 @@ function Order() {
             </div>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 }
