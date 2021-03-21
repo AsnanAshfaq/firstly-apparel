@@ -1,7 +1,7 @@
 //TODO: brand name
 // sign out button
 
-import { header } from "../styles";
+import { header, link } from "../styles";
 
 function Header() {
   const handleSignOut = (e) => {
@@ -9,12 +9,14 @@ function Header() {
     console.log("SIgn Out was clicked");
   };
   return (
-    <div className="row m-0" style={{paddingTop:20}}>
+    <div className="row m-0" style={header}>
       <div className="col-lg-11 col-md-9 col-sm-10 col-6 d-flex  align-items-center m-0 p-0">
-        <h2 style={{ userSelect: "none"}}>FIRSTLY APPARELS</h2>
+        <h2 style={{ userSelect: "none" }}>FIRSTLY APPARELS</h2>
       </div>
       <div className="col-lg-1 col-md-3 col-sm-2 col-6 d-flex justify-content-center align-items-center m-0 p-0">
-        <p onClick={handleSignOut}>Sign Out</p>
+        <p style={{ cursor: "pointer" }} onClick={handleSignOut}>
+          Sign Out
+        </p>
       </div>
     </div>
   );

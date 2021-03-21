@@ -1,17 +1,24 @@
+import { useEffect } from "react";
 import Home from "./containers/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Footer from "./components/Footer";
-import MyOrders from "./components/MyOrders";
-
+import useMainState from "./State/MainState";
+import { db } from "./firebase";
+import Order from "./components/Order";
 function App() {
-  const bool = false;
+  const { MyOrders, handleMyOrders, Loading } = useMainState();
+
+  // useEffect(() => {
+  //   // If it is loading
+  //   // then fetch the data from firebase
+  //   // and store it in main state
+
+  // },[]);
   return (
     <div className="container-fluid">
       <Router>
+        <Home />
         <Switch>
-          <Route path="/">
-            <Home />
-          </Route>
+          <Route exact path="/add-order" component={Order} />
         </Switch>
       </Router>
     </div>

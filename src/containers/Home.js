@@ -1,11 +1,10 @@
 import Header from "../components/Header";
 import "../App.css";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { link } from "../styles";
 import Accordian from "../components/Accordian";
-import MyOrders from "../components/MyOrders";
+import Order from "../components/Order";
 
 function Home() {
+  const data = "";
   return (
     <div className="row m-0 p-0">
       <Header />
@@ -14,7 +13,9 @@ function Home() {
         <Accordian />
         {/* black space  */}
         <div className="col-1"></div>
-        <MyOrders />
+        <Order data={data} />
+        {/* black space  */}
+        <div className="col-3"></div>
       </div>
     </div>
   );
