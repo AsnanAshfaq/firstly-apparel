@@ -29,7 +29,7 @@ function Accordian() {
           >
             <div class="accordion-body" style={{ border: "none" }}>
               <div className="accordina-item-container">
-                <Link to="/my-orders" style={link}>
+                <Link to="/" style={link}>
                   <p className="link" style={{ cursor: "pointer" }}>
                     My Orders
                   </p>

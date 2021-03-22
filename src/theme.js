@@ -4,5 +4,6 @@ const colors = {
   METAL: "#1F2833",
   SKY_BLUE: "#66FCF1",
   AQUA: "#45A29E",
+  CARD_BACKGROUND: "#2c2f39"
 };
 export { colors };
