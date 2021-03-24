@@ -2,12 +2,9 @@
 // sign out button
 
 import { header, link } from "../styles";
-
+import useAuthState from "../State/AuthState";
 function Header() {
-  const handleSignOut = (e) => {
-    e.preventDefault();
-    console.log("SIgn Out was clicked");
-  };
+  const { handleSignOut } = useAuthState();
   return (
     <div className="row m-0" style={header}>
       <div className="col-lg-11 col-md-9 col-sm-10 col-6 d-flex  align-items-center m-0 p-0">

@@ -1,9 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import useAuthState from "../State/AuthState";
-import { BrowserRouter as Router, Route, Switch,Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 
 function SignIn() {
   const { handeSignIn } = useAuthState();
+  const history = useHistory();
   return (
     <div className="container-fluid" style={{ height: 600 }}>
       <div className="row d-flex">
@@ -43,15 +50,13 @@ function SignIn() {
                     values.email,
                     values.password
                   );
-                  if(result){
-                    // successfully signed in 
+                  if (result) {
+                    // successfully signed in
                     // go to home page
-                    window.location("/")
+                    history.replace("/");
+                  } else {
+                    alert("Can't Sign in with given credentials");
                   }
-                  else{
-                    alert("Can't Sign in with given credentials")
-                  }
-
                   setSubmitting(false);
                 }}
               >

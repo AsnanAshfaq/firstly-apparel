@@ -4,8 +4,10 @@
 // set email password
 import { auth } from "../firebase";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 const AuthState = () => {
   const [isSignedIn, setisSignedIn] = useState(false);
+  const history = useHistory();
   const handeSignIn = async (email, password) => {
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
@@ -17,7 +19,12 @@ const AuthState = () => {
       return false;
     }
   };
-  return { isSignedIn, handeSignIn };
+
+  const handleSignOut = () => {
+    auth.signOut();
+    history.replace("/signin")
+  };
+  return { isSignedIn, handeSignIn, handleSignOut };
 };
 
 export default AuthState;
