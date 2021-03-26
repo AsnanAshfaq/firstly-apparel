@@ -11,7 +11,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         const user = auth.currentUser;
-        console.log("user is",user)
+        console.log("user is", user);
         if (user !== null) {
           return <Component {...props} />;
         } else {

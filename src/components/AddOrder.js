@@ -8,8 +8,9 @@ import useMainState from "../State/MainState";
 
 function AddOrder() {
   const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
-  const { AddOrder, handleAddOrder } = useMainState();
+  const { AddOrder, handleAddOrder, addingOrder } = useMainState();
 
   return (
     <div className="row m-0 p-0">
@@ -35,9 +36,9 @@ function AddOrder() {
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
                         value={AddOrder.customer_name}
-                          onChange={(e) =>
-                            handleAddOrder("customer_name", e.target.value)
-                          }
+                        onChange={(e) =>
+                          handleAddOrder("customer_name", e.target.value)
+                        }
                       />
                     </div>
                   </p>
@@ -50,9 +51,9 @@ function AddOrder() {
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
                         value={AddOrder.customer_brand}
-                          onChange={(e) =>
-                            handleAddOrder("customer_brand", e.target.value)
-                          }
+                        onChange={(e) =>
+                          handleAddOrder("customer_brand", e.target.value)
+                        }
                       />
                     </div>
                   </p>
@@ -65,9 +66,9 @@ function AddOrder() {
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
                         value={AddOrder.customer_contact}
-                          onChange={(e) =>
-                            handleAddOrder("customer_contact", e.target.value)
-                          }
+                        onChange={(e) =>
+                          handleAddOrder("customer_contact", e.target.value)
+                        }
                       />
                     </div>
                   </p>
@@ -187,8 +188,10 @@ function AddOrder() {
                       Order Taken on
                       <div class="input-group input-group-sm mb-3 mt-2 p-1">
                         <DatePicker
-                          selected={startDate}
-                          onChange={(date) => setStartDate(date)}
+                          selected={AddOrder.date_of_order}
+                          onChange={(date) =>
+                            handleAddOrder("date_of_order", date)
+                          }
                         />
                       </div>
                     </p>
@@ -196,14 +199,18 @@ function AddOrder() {
                       Order Deadline
                       <div class="input-group input-group-sm mb-3 mt-2 p-1">
                         <DatePicker
-                          selected={startDate}
-                          onChange={(date) => setStartDate(date)}
+                          selected={AddOrder.order_delivery_deadline}
+                          onChange={(date) =>
+                            handleAddOrder("order_delivery_deadline", date)
+                          }
                         />
                       </div>
                     </p>
                   </div>
                   <div className="d-flex justify-content-center">
-                    <button class="btn btn-primary  w-50">Add an Order</button>
+                    <button class="btn btn-primary  w-50" onClick={addingOrder}>
+                      Add an Order
+                    </button>
                   </div>
                 </div>
               </div>

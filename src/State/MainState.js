@@ -5,9 +5,10 @@
 // Delete Order
 // Edit Order
 // Maintain Check list
-
+import firebase from "firebase";
 import { useState } from "react";
 import { db } from "../firebase";
+import { useHistory } from "react-router-dom";
 function MainState() {
   const [MyOrders, setMyOrders] = useState([{}]);
   const [Loading, setLoading] = useState(true);
@@ -27,12 +28,58 @@ function MainState() {
   };
 
   const [AddOrder, setAddOrder] = useState(Order_Template);
-  const [AddOrderError, setAddOrderError] = useState("");
+  const [Error, setError] = useState("");
+  const History = useHistory();
 
   const handleAddOrder = (key, value) => {
-    let x = Order_Template;
+    let x = {
+      currency: AddOrder.currency,
+      customer_brand: AddOrder.customer_brand,
+      customer_contact: AddOrder.customer_contact,
+      customer_name: AddOrder.customer_name,
+      date_of_order: AddOrder.date_of_order,
+      order_delivery_deadline: AddOrder.order_delivery_deadline,
+      price: AddOrder.price,
+      region: AddOrder.region,
+      total_pieces: AddOrder.total_pieces,
+      type_of_order: AddOrder.type_of_order,
+      type_of_product: AddOrder.type_of_product,
+    };
     x[key] = value;
     setAddOrder(x);
+  };
+
+  const addingOrder = () => {
+    // checking for errors
+    if (AddOrder.customer_name === "") setError("Please Enter Customer Name");
+    else if (AddOrder.customer_contact === "")
+      setError("Please Enter Customer Contact Info");
+    else if (AddOrder.total_pieces === "")
+      setError("Please Enter Total Pieces");
+    else if (AddOrder.price === "") setError("Please Enter Pirce");
+    else if (AddOrder.order_delivery_deadline === new Date())
+      setError("Please set Valid Deadline");
+
+    if (Error !== "") alert(Error);
+    else {
+      // convert date to firebase timestamp
+      AddOrder["date_of_order"] = firebase.firestore.Timestamp.fromDate(
+        AddOrder["date_of_order"]
+      );
+      AddOrder[
+        "order_delivery_deadline"
+      ] = firebase.firestore.Timestamp.fromDate(
+        AddOrder["order_delivery_deadline"]
+      );
+      // add order to database
+      db.collection("Orders")
+        .add(AddOrder)
+        .then(() => {
+          console.log("Data has been added");
+          History.replace("/");
+        });
+      // db.collection("Orders").add();
+    }
   };
   const handleMyOrders = () => {
     try {
@@ -55,7 +102,14 @@ function MainState() {
     }
   };
 
-  return { MyOrders, handleMyOrders, Loading, handleAddOrder, AddOrder };
+  return {
+    MyOrders,
+    handleMyOrders,
+    Loading,
+    handleAddOrder,
+    AddOrder,
+    addingOrder,
+  };
 }
 
 export default MainState;
