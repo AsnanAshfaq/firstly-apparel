@@ -4,9 +4,12 @@ import Header from "./Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { currency, region, type_of_order, type_of_product } from "../Constants";
+import useMainState from "../State/MainState";
 
 function AddOrder() {
   const [startDate, setStartDate] = useState(new Date());
+
+  const { AddOrder, handleAddOrder } = useMainState();
 
   return (
     <div className="row m-0 p-0">
@@ -31,6 +34,10 @@ function AddOrder() {
                         class="form-control"
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
+                        value={AddOrder.customer_name}
+                          onChange={(e) =>
+                            handleAddOrder("customer_name", e.target.value)
+                          }
                       />
                     </div>
                   </p>
@@ -42,6 +49,10 @@ function AddOrder() {
                         class="form-control"
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
+                        value={AddOrder.customer_brand}
+                          onChange={(e) =>
+                            handleAddOrder("customer_brand", e.target.value)
+                          }
                       />
                     </div>
                   </p>
@@ -53,6 +64,10 @@ function AddOrder() {
                         class="form-control"
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
+                        value={AddOrder.customer_contact}
+                          onChange={(e) =>
+                            handleAddOrder("customer_contact", e.target.value)
+                          }
                       />
                     </div>
                   </p>
@@ -68,9 +83,15 @@ function AddOrder() {
                         <select
                           class="custom-select w-50 border-none p-1"
                           id="inputGroupSelect04"
+                          value={AddOrder.type_of_product}
+                          onChange={(e) =>
+                            handleAddOrder("type_of_product", e.target.value)
+                          }
                         >
                           {type_of_product.map((product) => (
-                            <option value={product} selected>{product}</option>
+                            <option value={product} selected>
+                              {product}
+                            </option>
                           ))}
                         </select>
                       </div>
@@ -83,6 +104,10 @@ function AddOrder() {
                           class="form-control"
                           aria-label="Small"
                           aria-describedby="inputGroup-sizing-sm"
+                          value={AddOrder.total_pieces}
+                          onChange={(e) =>
+                            handleAddOrder("total_pieces", e.target.value)
+                          }
                         />
                       </div>
                     </p>
@@ -92,9 +117,15 @@ function AddOrder() {
                         <select
                           class="custom-select w-50 p-1"
                           id="inputGroupSelect04"
+                          value={AddOrder.region}
+                          onChange={(e) =>
+                            handleAddOrder("region", e.target.value)
+                          }
                         >
                           {region.map((region) => (
-                            <option value={region} selected>{region}</option>
+                            <option value={region} selected>
+                              {region}
+                            </option>
                           ))}
                         </select>
                       </div>
@@ -107,6 +138,10 @@ function AddOrder() {
                           class="form-control"
                           aria-label="Small"
                           aria-describedby="inputGroup-sizing-sm"
+                          onChange={(e) =>
+                            handleAddOrder("price", e.target.value)
+                          }
+                          value={AddOrder.price}
                         />
                       </div>
                     </p>
@@ -116,10 +151,15 @@ function AddOrder() {
                         <select
                           class="custom-select w-50 p-1"
                           id="inputGroupSelect04"
+                          value={AddOrder.currency}
+                          onChange={(e) =>
+                            handleAddOrder("currency", e.target.value)
+                          }
                         >
-                          {/* <option selected></option> */}
                           {currency.map((curr) => (
-                            <option value={curr} selected>{curr}</option>
+                            <option value={curr} selected>
+                              {curr}
+                            </option>
                           ))}
                         </select>
                       </div>
@@ -130,9 +170,15 @@ function AddOrder() {
                         <select
                           class="custom-select w-50 p-1"
                           id="inputGroupSelect04"
+                          value={AddOrder.type_of_order}
+                          onChange={(e) =>
+                            handleAddOrder("type_of_order", e.target.value)
+                          }
                         >
                           {type_of_order.map((orderType) => (
-                            <option value={orderType} selected>{orderType}</option>
+                            <option value={orderType} selected>
+                              {orderType}
+                            </option>
                           ))}
                         </select>
                       </div>

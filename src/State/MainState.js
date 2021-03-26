@@ -13,17 +13,26 @@ function MainState() {
   const [Loading, setLoading] = useState(true);
 
   const Order_Template = {
-    currency: "",
+    currency: "Pakistani Rupee",
     customer_brand: "",
     customer_contact: "",
     customer_name: "",
-    date_of_order: "",
-    order_delivery_deadline: "",
+    date_of_order: new Date(),
+    order_delivery_deadline: new Date(),
     price: "",
-    region: "",
+    region: "UK",
     total_pieces: "",
-    type_of_order: "",
-    type_of_product: "",
+    type_of_order: "Sample",
+    type_of_product: "Pants",
+  };
+
+  const [AddOrder, setAddOrder] = useState(Order_Template);
+  const [AddOrderError, setAddOrderError] = useState("");
+
+  const handleAddOrder = (key, value) => {
+    let x = Order_Template;
+    x[key] = value;
+    setAddOrder(x);
   };
   const handleMyOrders = () => {
     try {
@@ -46,7 +55,7 @@ function MainState() {
     }
   };
 
-  return { MyOrders, handleMyOrders, Loading };
+  return { MyOrders, handleMyOrders, Loading, handleAddOrder, AddOrder };
 }
 
 export default MainState;
