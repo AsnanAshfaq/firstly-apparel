@@ -13,10 +13,10 @@ const AuthState = () => {
       const result = await auth.signInWithEmailAndPassword(email, password);
       if (result) {
         setisSignedIn(true);
-        return true;
+        return "Successfull";
       }
     } catch (error) {
-      return false;
+      return error;
     }
   };
 

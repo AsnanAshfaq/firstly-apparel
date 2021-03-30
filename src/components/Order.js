@@ -17,7 +17,8 @@ import { useEffect } from "react";
 import useMainState from "../State/MainState";
 import { card } from "../styles.js";
 import firebase from "firebase";
-import '../App.css'
+import "../App.css";
+import { Link } from "react-router-dom";
 
 function Order() {
   const { Loading, MyOrders, handleMyOrders } = useMainState();
@@ -39,7 +40,7 @@ function Order() {
       {Loading === false ? (
         MyOrders.length > 0 ? (
           MyOrders.map((order) => (
-            <div className="row mt-4">
+            <div className="row mt-4" key={order.id}>
               <div
                 className="col card p-4"
                 style={{
@@ -87,11 +88,19 @@ function Order() {
                   </div>
                 </div>
                 {/* buttons  */}
+                {/* `/${order.id}/${order.data}/checklist` */}
                 <div className="row d-flex flex-row">
                   <div className="col">
-                    <button className="btn btn-dark w-100 link">
-                      Check List
-                    </button>
+                    <Link
+                      to={{
+                        pathname: `/${order.id}/checklist`,
+                        state: { data: order.data },
+                      }}
+                    >
+                      <button className="btn btn-dark w-100 link">
+                        Check List
+                      </button>
+                    </Link>
                   </div>
                   <div className="col">
                     <button className="btn btn-secondary w-100 link">

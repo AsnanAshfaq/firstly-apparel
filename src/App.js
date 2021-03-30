@@ -7,6 +7,7 @@ import Order from "./components/Order";
 import AddOrder from "./components/AddOrder";
 import SignIn from "./containers/SignIn";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CheckList from "./components/Checklist";
 function App() {
   return (
     <div className="container-fluid">
@@ -14,12 +15,13 @@ function App() {
         <Switch>
           <ProtectedRoute component={Home} exact path="/" />
           <ProtectedRoute component={AddOrder} exact path="/add-order" />
+          <ProtectedRoute component={CheckList} exact path="/:id/checklist" />
           <Route exact path="/signin" component={SignIn} />
           <Route
             path="*"
             component={() => (
               <div className="container-fluid d-flex justify-content-center align-items-center">
-                <h3>404 Page Not Found</h3>
+                <h3 className="container-fluid d-flex justify-content-center align-items-center">404 Page Not Found</h3>
               </div>
             )}
           />

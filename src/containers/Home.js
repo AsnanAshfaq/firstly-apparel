@@ -17,6 +17,12 @@ function Home() {
         {/* black space  */}
         <div className="col-3"></div>
       </div>
+      <div className="row">
+        <div className="col">
+          <br />
+          <br />
+        </div>
+      </div>
     </div>
   );
 }

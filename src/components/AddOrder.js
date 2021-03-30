@@ -220,6 +220,12 @@ function AddOrder() {
         {/* black space  */}
         <div className="col-2"></div>
       </div>
+      <div className="row">
+        <div className="col">
+          <br />
+          <br />
+        </div>
+      </div>
     </div>
   );
 }

@@ -25,12 +25,17 @@ function MainState() {
     total_pieces: "",
     type_of_order: "Sample",
     type_of_product: "Pants",
+    TodoList: [
+      {
+        Value: "",
+        isChecked: false,
+      },
+    ],
   };
 
   const [AddOrder, setAddOrder] = useState(Order_Template);
   const [Error, setError] = useState("");
   const History = useHistory();
-
   const handleAddOrder = (key, value) => {
     let x = {
       currency: AddOrder.currency,
@@ -44,6 +49,7 @@ function MainState() {
       total_pieces: AddOrder.total_pieces,
       type_of_order: AddOrder.type_of_order,
       type_of_product: AddOrder.type_of_product,
+      TodoList: AddOrder.TodoList,
     };
     x[key] = value;
     setAddOrder(x);
@@ -71,6 +77,7 @@ function MainState() {
       ] = firebase.firestore.Timestamp.fromDate(
         AddOrder["order_delivery_deadline"]
       );
+      console.log("Order is ", AddOrder);
       // add order to database
       db.collection("Orders")
         .add(AddOrder)
@@ -78,7 +85,6 @@ function MainState() {
           console.log("Data has been added");
           History.replace("/");
         });
-      // db.collection("Orders").add();
     }
   };
   const handleMyOrders = () => {
@@ -102,6 +108,19 @@ function MainState() {
     }
   };
 
+  // saving a todo to the database
+  const savingTodo = (id, data) => {
+    db.collection("Orders")
+      .doc(id)
+      .update({
+        TodoList: data,
+      })
+      .then(() => {
+        console.log("Data has been added");
+        alert("Data has been updated");
+      });
+  };
+
   return {
     MyOrders,
     handleMyOrders,
@@ -109,6 +128,7 @@ function MainState() {
     handleAddOrder,
     AddOrder,
     addingOrder,
+    savingTodo,
   };
 }
 

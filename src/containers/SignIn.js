@@ -50,12 +50,12 @@ function SignIn() {
                     values.email,
                     values.password
                   );
-                  if (result) {
+                  if (result === "Successfull") {
                     // successfully signed in
                     // go to home page
                     history.replace("/");
                   } else {
-                    alert("Can't Sign in with given credentials");
+                    alert(result.message);
                   }
                   setSubmitting(false);
                 }}
