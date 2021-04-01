@@ -10,9 +10,6 @@ import { useState } from "react";
 import { db } from "../firebase";
 import { useHistory } from "react-router-dom";
 function MainState() {
-  const [MyOrders, setMyOrders] = useState([{}]);
-  const [Loading, setLoading] = useState(true);
-
   const Order_Template = {
     currency: "Pakistani Rupee",
     customer_brand: "",
@@ -33,6 +30,9 @@ function MainState() {
     ],
   };
 
+  const [MyOrders, setMyOrders] = useState([{}]);
+  const [historyOrders, sethistoryOrders] = useState([]);
+  const [Loading, setLoading] = useState(true);
   const [AddOrder, setAddOrder] = useState(Order_Template);
   const [Error, setError] = useState("");
   const History = useHistory();
@@ -105,7 +105,7 @@ function MainState() {
           setLoading(false);
         });
     } catch (error) {
-      console.log("Error is", error);
+      alert(`Error is, ${error.message}`);
     }
   };
 
@@ -139,15 +139,43 @@ function MainState() {
 
     console.log("Ref is", ref);
   };
+
+  // get all the docs in history
+  const getHistory = () => {
+    try {
+      db.collection("Orders")
+        .orderBy("order_delivery_deadline", "desc")
+        .onSnapshot((snapshot) => {
+          sethistoryOrders((prev) =>
+            snapshot.docs.map((document) => {
+              return {
+                id: document.id,
+                data: document.data(),
+                ...prev,
+              };
+            })
+          );
+          setLoading(false);
+        });
+    } catch (error) {
+      alert(`Error is, ${error.message}`);
+    }
+  };
+
+  // deleting a document permanently
+  const permanentDelete = () => {};
   return {
     MyOrders,
-    handleMyOrders,
+    historyOrders,
     Loading,
-    handleAddOrder,
     AddOrder,
+    handleMyOrders,
+    handleAddOrder,
     addingOrder,
     savingTodo,
     moveToHistory,
+    getHistory,
+    permanentDelete,
   };
 }
 
