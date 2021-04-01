@@ -1,14 +1,11 @@
 import Header from "../components/Header";
 import "../App.css";
 import Accordian from "../components/Accordian";
-import Order from "../components/Order";
-
 import { useEffect } from "react";
 import useMainState from "../State/MainState";
-import OrderCard from "../components/OrderCard"
+import OrderCard from "../components/OrderCard";
 
 function Home() {
-  const data = "";
   const { Loading, MyOrders, handleMyOrders, moveToHistory } = useMainState();
 
   useEffect(() => {
@@ -30,9 +27,9 @@ function Home() {
       <div className="row m-0 p-0 d-flex flex-row" style={{ marginTop: 30 }}>
         <Accordian />
         {/* black space  */}
-        <div className="col-1"></div>
+        <div className="col-1 col-md-0 col-sm-0"></div>
         {/* show orders  */}
-        <div className="col-5" style={{ marginTop: 30 }}>
+        <div className="col-5 col-md-7 col-sm-8" style={{ marginTop: 30 }}>
           <h3>My Orders </h3>
 
           {Loading === false && MyOrders.length > 0 && (
@@ -60,7 +57,7 @@ function Home() {
           )}
         </div>
         {/* black space  */}
-        <div className="col-3"></div>
+        <div className="col-3 col-md-1 col-sm-0"></div>
       </div>
       <div className="row">
         <div className="col">

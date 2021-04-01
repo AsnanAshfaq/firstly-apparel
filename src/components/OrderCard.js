@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import useMainState from "../State/MainState";
 
-const OrderCard = ({ id, order, page, handleHistory }) => {
+const OrderCard = ({ id, order, page, handleHistory, permanentDelete }) => {
   const { Loading, MyOrders, handleMyOrders, moveToHistory } = useMainState();
 
   return (
@@ -47,8 +47,8 @@ const OrderCard = ({ id, order, page, handleHistory }) => {
           </p>
         </div>
       </div>
-      {/* only show buttons if  we are on My Orders Page  */}
-      {page === "My Orders" && (
+      {/* only three buttons if  we are on My Orders Page  */}
+      {page === "My Orders" ? (
         <div className="row d-flex flex-row">
           <div className="col">
             <Link
@@ -72,6 +72,17 @@ const OrderCard = ({ id, order, page, handleHistory }) => {
             <button className="btn btn-primary w-100 link">Edit</button>
           </div>
         </div>
+      ) : page === "History" && (
+        <div className="row d-flex flex-row">
+        <div className="col">
+          <button
+            className="btn btn-danger w-100 link"
+            onClick={() => permanentDelete(id)}
+          >
+            Permanently Delete
+          </button>
+        </div>
+      </div>
       )}
     </div>
   );

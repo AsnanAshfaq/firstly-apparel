@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Accordian from "./Accordian";
 import Header from "./Header";
-import Order from "./Order";
 import useMainState from "../State/MainState";
 import OrderCard from "./OrderCard";
 
@@ -41,8 +40,13 @@ const History = () => {
                     key={order.id}
                     id={order.id}
                     order={order.data}
-                    page={"My Orders"}
-                    permanentDelete={permanentDelete}
+                    page={"History"}
+                    permanentDelete={() => {
+                      const isConfirmed = window.confirm(
+                        `Do you really want to delete Order with ID " ${order.id} "?`
+                      );
+                      if (isConfirmed) permanentDelete(order.id);
+                    }}
                   />
                 </div>
               ))

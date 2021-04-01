@@ -163,7 +163,14 @@ function MainState() {
   };
 
   // deleting a document permanently
-  const permanentDelete = () => {};
+  const permanentDelete = (id) => {
+    db.collection("History")
+      .doc(id)
+      .delete()
+      .then(() => {
+        alert("Order Deleted");
+      });
+  };
   return {
     MyOrders,
     historyOrders,

@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import Home from "./containers/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import useAuthState from "./State/AuthState";
-import { db, auth } from "./firebase";
-import Order from "./components/Order";
 import AddOrder from "./components/AddOrder";
 import SignIn from "./containers/SignIn";
 import ProtectedRoute from "./components/ProtectedRoute";

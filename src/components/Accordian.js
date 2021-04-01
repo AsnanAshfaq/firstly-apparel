@@ -4,7 +4,7 @@ import { link } from "../styles";
 
 function Accordian() {
   return (
-    <div className="col-3">
+    <div className="col-3 col-md-3 col-sm-4">
       <div class="accordion" style={{ marginTop: 30 }} id="accordionExample">
         <div class="accordion-item" style={{ boxShadow: "none" }}>
           <h2 class="accordion-header" id="headingOne">
