@@ -84,7 +84,8 @@ function MainState() {
         .then(() => {
           console.log("Data has been added");
           History.replace("/");
-        });
+        })
+        .catch((e) => alert(e.message));
     }
   };
   const handleMyOrders = () => {
@@ -110,6 +111,7 @@ function MainState() {
 
   // saving a todo to the database
   const savingTodo = (id, data) => {
+    console.log("Data is ", data);
     db.collection("Orders")
       .doc(id)
       .update({
@@ -118,9 +120,25 @@ function MainState() {
       .then(() => {
         console.log("Data has been added");
         alert("Data has been updated");
-      });
+      })
+      .catch((e) => alert(e.message));
   };
 
+  // moving order to history
+  const moveToHistory = (id) => {
+    const ref = db.collection("Orders").doc(id);
+    ref.get().then(async (doc) => {
+      if (doc.exists) {
+        // store document in history collection
+        await db.collection("History").add(doc.data());
+        // and delete from orders collection
+        await db.collection("Orders").doc(id).delete();
+        History.replace("/");
+      }
+    });
+
+    console.log("Ref is", ref);
+  };
   return {
     MyOrders,
     handleMyOrders,
@@ -129,6 +147,7 @@ function MainState() {
     AddOrder,
     addingOrder,
     savingTodo,
+    moveToHistory,
   };
 }
 

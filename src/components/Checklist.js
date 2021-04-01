@@ -4,6 +4,7 @@ import Accordian from "./Accordian";
 import Header from "./Header";
 import "../App.css";
 import useMainState from "../State/MainState";
+import OrderCard from "./OrderCard";
 
 const CheckList = () => {
   let Location = useLocation();
@@ -86,13 +87,13 @@ const CheckList = () => {
                         <p>No Todo yet</p>
                       </div>
                     );
-                  } else if(todo.Value !== ""){
+                  } else if (todo.Value !== "") {
                     return (
                       <div className="col d-flex flex-row mt-3">
                         <input
                           type="checkbox"
                           className="mt-2"
-                          value={todo.isChecked}
+                          defaultChecked={todo.isChecked}
                           onChange={(e) => {
                             let newTodoList = [...TodoList];
                             newTodoList[index]["isChecked"] = e.target.checked;
@@ -111,7 +112,11 @@ const CheckList = () => {
                 <button
                   className="btn d-flex justify-content-center w-100 btn-secondary"
                   onClick={() => savingTodo(id, TodoList)}
-                  disabled={TodoList.length === 1 && TodoList[0].Value === "" ? true : false}
+                  disabled={
+                    TodoList.length === 1 && TodoList[0].Value === ""
+                      ? true
+                      : false
+                  }
                 >
                   Save Changes
                 </button>
@@ -120,55 +125,8 @@ const CheckList = () => {
           </div>
           <div className="row mt-4" key={id}>
             <h4>Order Details</h4>
-            <div
-              className="col card p-4"
-              style={{
-                backgroundColor: "#2c2f39",
-                minHeight: 200,
-                color: "white",
-                fontSize: 18,
-              }}
-            >
-              <h5>Order ID&nbsp; &nbsp; {id}</h5>
-              {/* customer details  */}
-              <div className="d-flex flex-column">
-                <h5>Customer Details</h5>
-                <div className="container-fluid">
-                  <p>Name : {order.customer_name}</p>
-                  <p>Brand : {order.customer_brand}</p>
-                  <p>Contact Info : {order.customer_contact}</p>
-                </div>
-              </div>
-              {/* order details  */}
-              <div className="d-flex flex-column">
-                <h5>Order Details</h5>
-                <div className="container-fluid">
-                  <p>
-                    Price : {order.price} ( {order.currency} )
-                  </p>
-                  <p>Total Pieces : {order.total_pieces}</p>
-                  <p>Region : {order.region}</p>
-                  <p>Product Type : {order.type_of_product}</p>
-                  <p>Order Type : {order.type_of_order} Order</p>
-                  <p>
-                    Order Taken on :{" "}
-                    {new Date(
-                      order.date_of_order.seconds * 1000
-                    ).toDateString()}
-                  </p>
-                  <p>
-                    Order Deadline :{" "}
-                    {new Date(
-                      order.order_delivery_deadline.seconds * 1000
-                    ).toDateString()}
-                  </p>
-                </div>
-              </div>
-              {/* Check List  */}
-              <div className="row d-flex flex-row">
-                <div className="col"></div>
-              </div>
-            </div>
+            {/* show order details component  */}
+            <OrderCard key={id} order={order} page={"Checklist"}/>
           </div>
         </div>
         {/* black space  */}
