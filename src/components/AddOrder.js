@@ -192,6 +192,7 @@ function AddOrder() {
                           onChange={(date) =>
                             handleAddOrder("date_of_order", date)
                           }
+                          dateFormat="dd/MM/yyyy"
                         />
                       </div>
                     </p>
@@ -203,6 +204,7 @@ function AddOrder() {
                           onChange={(date) =>
                             handleAddOrder("order_delivery_deadline", date)
                           }
+                          dateFormat="dd/MM/yyyy"
                         />
                       </div>
                     </p>

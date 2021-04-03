@@ -6,7 +6,7 @@
 // Edit Order
 // Maintain Check list
 import firebase from "firebase";
-import { useState } from "react";
+import { useState,} from "react";
 import { db } from "../firebase";
 import { useHistory } from "react-router-dom";
 function MainState() {
@@ -34,7 +34,6 @@ function MainState() {
   const [historyOrders, sethistoryOrders] = useState([]);
   const [Loading, setLoading] = useState(true);
   const [AddOrder, setAddOrder] = useState(Order_Template);
-  const [Error, setError] = useState("");
   const History = useHistory();
   const handleAddOrder = (key, value) => {
     let x = {
@@ -57,17 +56,25 @@ function MainState() {
 
   const addingOrder = () => {
     // checking for errors
-    if (AddOrder.customer_name === "") setError("Please Enter Customer Name");
+    var Error = "";
+    if (AddOrder.customer_name === "") Error += "Please Enter Customer Name";
     else if (AddOrder.customer_contact === "")
-      setError("Please Enter Customer Contact Info");
-    else if (AddOrder.total_pieces === "")
-      setError("Please Enter Total Pieces");
-    else if (AddOrder.price === "") setError("Please Enter Pirce");
-    else if (AddOrder.order_delivery_deadline === new Date())
-      setError("Please set Valid Deadline");
+      Error += "Please Enter Customer Contact Info";
+    else if (AddOrder.total_pieces === "") Error += "Please Enter Total Pieces";
+    else if (!/^\d+$/.test(AddOrder.total_pieces))
+      Error += "Please Enter Pieces in Numbers";
+    else if (AddOrder.price === "") Error += "Please Enter Pirce";
+    else if (!/^\d+$/.test(AddOrder.price))
+      Error += "Please Enter Price in Numbers";
+    else if (
+      AddOrder.order_delivery_deadline.getDate() ===
+      AddOrder.date_of_order.getDate()
+    )
+      Error += "Please set Valid Deadline";
 
-    if (Error !== "") alert(Error);
-    else {
+    if (Error.length !== 0) {
+      alert(Error);
+    } else {
       // convert date to firebase timestamp
       AddOrder["date_of_order"] = firebase.firestore.Timestamp.fromDate(
         AddOrder["date_of_order"]
@@ -77,7 +84,6 @@ function MainState() {
       ] = firebase.firestore.Timestamp.fromDate(
         AddOrder["order_delivery_deadline"]
       );
-      console.log("Order is ", AddOrder);
       // add order to database
       db.collection("Orders")
         .add(AddOrder)
@@ -146,8 +152,8 @@ function MainState() {
   // get all the docs in history
   const getHistory = () => {
     try {
-      db.collection("Orders")
-        .orderBy("order_delivery_deadline", "desc")
+      db.collection("History")
+        .orderBy("order_delivery_deadline", "asc")
         .onSnapshot((snapshot) => {
           sethistoryOrders((prev) =>
             snapshot.docs.map((document) => {
@@ -181,6 +187,7 @@ function MainState() {
     AddOrder,
     handleMyOrders,
     handleAddOrder,
+    setAddOrder,
     addingOrder,
     savingTodo,
     moveToHistory,

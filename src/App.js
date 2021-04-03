@@ -6,6 +6,7 @@ import SignIn from "./containers/SignIn";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CheckList from "./components/Checklist";
 import History from "./components/History";
+import EditOrder from "./components/EditOrder";
 function App() {
   return (
     <div className="container-fluid">
@@ -15,6 +16,7 @@ function App() {
           <ProtectedRoute component={AddOrder} exact path="/add-order" />
           <ProtectedRoute component={History} exact path="/orders-history" />
           <ProtectedRoute component={CheckList} exact path="/:id/checklist" />
+          <ProtectedRoute component={EditOrder} exact path="/:id/edit-order" />
           <Route exact path="/signin" component={SignIn} />
           <Route
             path="*"

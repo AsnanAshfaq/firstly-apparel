@@ -14,6 +14,7 @@ const History = () => {
 
   useEffect(() => {
     if (Loading) {
+      console.log(historyOrders)
       getHistory();
       console.log("History orders are", historyOrders);
     }

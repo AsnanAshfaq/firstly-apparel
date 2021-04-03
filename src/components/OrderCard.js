@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import useMainState from "../State/MainState";
 
 const OrderCard = ({ id, order, page, handleHistory, permanentDelete }) => {
-  const { Loading, MyOrders, handleMyOrders, moveToHistory } = useMainState();
-
   return (
     <div
       className="col card p-4"
@@ -20,7 +18,7 @@ const OrderCard = ({ id, order, page, handleHistory, permanentDelete }) => {
         <h5>Customer Details</h5>
         <div className="container-fluid">
           <p>Name : {order.customer_name}</p>
-          <p>Brand : {order.customer_brand}</p>
+          {order.customer_brand !== "" && <p>Brand : {order.customer_brand}</p>}
           <p>Contact Info : {order.customer_contact}</p>
         </div>
       </div>
@@ -69,20 +67,29 @@ const OrderCard = ({ id, order, page, handleHistory, permanentDelete }) => {
             </button>
           </div>
           <div className="col">
-            <button className="btn btn-primary w-100 link">Edit</button>
+            <Link
+              to={{
+                pathname: `/${id}/edit-order`,
+                state: { data: order },
+              }}
+            >
+              <button className="btn btn-primary w-100 link">Edit</button>
+            </Link>
           </div>
         </div>
-      ) : page === "History" && (
-        <div className="row d-flex flex-row">
-        <div className="col">
-          <button
-            className="btn btn-danger w-100 link"
-            onClick={() => permanentDelete(id)}
-          >
-            Permanently Delete
-          </button>
-        </div>
-      </div>
+      ) : (
+        page === "History" && (
+          <div className="row d-flex flex-row">
+            <div className="col">
+              <button
+                className="btn btn-danger w-100 link"
+                onClick={() => permanentDelete(id)}
+              >
+                Permanently Delete
+              </button>
+            </div>
+          </div>
+        )
       )}
     </div>
   );
