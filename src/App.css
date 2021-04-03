@@ -2,7 +2,8 @@
   cursor: pointer;
 }
 .accordina-item-container {
-  width: 200px;
+  /* width: 200px; */
+  width: '100%';
   padding: 10px;
   margin-left: 10px;
   font-size: 15px;
@@ -13,19 +14,4 @@
   cursor: pointer;
   font-size: 14px;
   /* padding-left: 12px; */
-}
-
-@media (min-width: 606px) {
-  .accordion-button {
-    max-width: 300px;
-  }
-  .accordina-item-container {
-    width: 200px;
-  }
-}
-
-@media only screen and (min-width: 900px) {
-  .accordion-button {
-    /* display: none; */
-  }
 }

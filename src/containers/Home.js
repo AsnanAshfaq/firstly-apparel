@@ -27,9 +27,9 @@ function Home() {
       <div className="row m-0 p-0 d-flex flex-row" style={{ marginTop: 30 }}>
         <Accordian />
         {/* black space  */}
-        <div className="col-1 col-md-0 col-sm-0"></div>
+        <div className="col-lg-1 col-xl-1 col-md-1"></div>
         {/* show orders  */}
-        <div className="col-5 col-md-7 col-sm-8" style={{ marginTop: 30 }}>
+        <div className="col-lg-7 col-xl-7 col-md-7" style={{ marginTop: 30 }}>
           <h3>My Orders </h3>
 
           {Loading === false && MyOrders.length > 0 && (
@@ -57,7 +57,7 @@ function Home() {
           )}
         </div>
         {/* black space  */}
-        <div className="col-3 col-md-1 col-sm-0"></div>
+        <div className="col-lg-1 col-xl-1 col-md-1"></div>
       </div>
       <div className="row">
         <div className="col">

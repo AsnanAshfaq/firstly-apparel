@@ -14,10 +14,10 @@ function SignIn() {
   return (
     <div className="container-fluid" style={{ height: 600 }}>
       <div className="row d-flex">
-        <div className="col-3"></div>
-        <div className="col-6">
+        <div className="col-lg-3 col-xl-3 col-md-1 col-sm-1 col-xs-1"></div>
+        <div className="col-lg-6 col-xl-6 col-md-10 col-sm-10 col-xs-10">
           <div className="row d-flex flex-column justify-content-center align-items-center w-100 m-0 p-0">
-            <div className="col-3 d-flex  justify-content-center align-items-center pt-4 w-100">
+            <div className="col d-flex  justify-content-center align-items-center pt-4 w-100">
               <h1 style={{ userSelect: "none" }}>FIRSTLY APPARELS</h1>
             </div>
 
@@ -77,6 +77,7 @@ function SignIn() {
                         class="form-control"
                         aria-label="Small"
                         aria-describedby="inputGroup-sizing-sm"
+                      
                       />
                     </div>
                     <ErrorMessage name="email" component="div" />
@@ -113,7 +114,7 @@ function SignIn() {
             </div>
           </div>
         </div>
-        <div className="col-3"></div>
+        <div className="col-lg-3 col-xl-3 col-md-1 col-sm-1 col-xs-1"></div>
       </div>
     </div>
   );

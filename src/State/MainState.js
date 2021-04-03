@@ -121,23 +121,26 @@ function MainState() {
         console.log("Data has been added");
         alert("Data has been updated");
       })
-      .catch((e) => alert(e.message));
+      .catch((e) => alert(`Error is, ${e.message}`));
   };
 
   // moving order to history
   const moveToHistory = (id) => {
     const ref = db.collection("Orders").doc(id);
-    ref.get().then(async (doc) => {
-      if (doc.exists) {
-        // store document in history collection
-        await db.collection("History").add(doc.data());
-        // and delete from orders collection
-        await db.collection("Orders").doc(id).delete();
-        History.replace("/");
-      }
-    });
-
-    console.log("Ref is", ref);
+    ref
+      .get()
+      .then(async (doc) => {
+        if (doc.exists) {
+          // store document in history collection
+          await db.collection("History").add(doc.data());
+          // and delete from orders collection
+          await db.collection("Orders").doc(id).delete();
+          History.replace("/");
+        }
+      })
+      .catch((err) => {
+        alert(`Error is, ${err.message}`);
+      });
   };
 
   // get all the docs in history
