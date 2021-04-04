@@ -17,7 +17,12 @@ const EditOrder = () => {
         <div className="col-lg-1 col-xl-1 col-md-1"></div>
         {/* show orders  */}
         <div className="col-lg-7 col-xl-7 col-md-7" style={{ marginTop: 30 }}>
-          <AddEditOrder heading={"Edit Order"} order={order} page={"Edit"} key={id}/>
+          <AddEditOrder
+            heading={"Edit Order"}
+            order={order}
+            page={"Edit"}
+            key={id}
+          />
         </div>
         {/* black space  */}
         <div className="col-lg-1 col-xl-1 col-md-1"></div>

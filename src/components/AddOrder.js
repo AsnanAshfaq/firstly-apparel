@@ -7,8 +7,6 @@ import { currency, region, type_of_order, type_of_product } from "../Constants";
 import useMainState from "../State/MainState";
 
 function AddOrder() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
 
   const { AddOrder, handleAddOrder, addingOrder } = useMainState();
 

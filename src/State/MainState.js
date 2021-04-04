@@ -6,7 +6,7 @@
 // Edit Order
 // Maintain Check list
 import firebase from "firebase";
-import { useState,} from "react";
+import { useState } from "react";
 import { db } from "../firebase";
 import { useHistory } from "react-router-dom";
 function MainState() {
@@ -54,8 +54,7 @@ function MainState() {
     setAddOrder(x);
   };
 
-  const addingOrder = () => {
-    // checking for errors
+  const ErrorChecking = () => {
     var Error = "";
     if (AddOrder.customer_name === "") Error += "Please Enter Customer Name";
     else if (AddOrder.customer_contact === "")
@@ -72,6 +71,11 @@ function MainState() {
     )
       Error += "Please set Valid Deadline";
 
+    return Error;
+  };
+  const addingOrder = () => {
+    // checking for errors
+    var Error = ErrorChecking();
     if (Error.length !== 0) {
       alert(Error);
     } else {
@@ -88,7 +92,34 @@ function MainState() {
       db.collection("Orders")
         .add(AddOrder)
         .then(() => {
-          console.log("Data has been added");
+          alert("Order has been Added.");
+          History.replace("/");
+        })
+        .catch((e) => alert(e.message));
+    }
+  };
+
+  const editingOrder = (id, data) => {
+    // checking for errors
+    var Error = ErrorChecking();
+    if (Error.length !== 0) {
+      alert(Error);
+    } else {
+      // convert date to firebase timestamp
+      AddOrder["date_of_order"] = firebase.firestore.Timestamp.fromDate(
+        AddOrder["date_of_order"]
+      );
+      AddOrder[
+        "order_delivery_deadline"
+      ] = firebase.firestore.Timestamp.fromDate(
+        AddOrder["order_delivery_deadline"]
+      );
+      // add order to database
+      db.collection("Orders")
+        .doc(id)
+        .update(AddOrder)
+        .then(() => {
+          alert("Order has been Edited.");
           History.replace("/");
         })
         .catch((e) => alert(e.message));
@@ -188,7 +219,9 @@ function MainState() {
     handleMyOrders,
     handleAddOrder,
     setAddOrder,
+    setLoading,
     addingOrder,
+    editingOrder,
     savingTodo,
     moveToHistory,
     getHistory,
