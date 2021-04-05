@@ -55,16 +55,21 @@ function MainState() {
   };
 
   const ErrorChecking = () => {
+    
     var Error = "";
     if (AddOrder.customer_name === "") Error += "Please Enter Customer Name";
     else if (AddOrder.customer_contact === "")
       Error += "Please Enter Customer Contact Info";
     else if (AddOrder.total_pieces === "") Error += "Please Enter Total Pieces";
+   
+      
     else if (!/^\d+$/.test(AddOrder.total_pieces))
       Error += "Please Enter Pieces in Numbers";
     else if (AddOrder.price === "") Error += "Please Enter Pirce";
-    else if (!/^\d+$/.test(AddOrder.price))
-      Error += "Please Enter Price in Numbers";
+    else if (!/^\d+(\.\d{1,2})?$/.test(AddOrder.price))
+    Error += `${AddOrder.price} Number is not a valid price`
+    // else if (!/^\d+$/.test(AddOrder.price))
+    //   Error += "Please Enter Price in Numbers";
     else if (
       AddOrder.order_delivery_deadline.getDate() ===
       AddOrder.date_of_order.getDate()
@@ -89,13 +94,13 @@ function MainState() {
         AddOrder["order_delivery_deadline"]
       );
       // add order to database
-      db.collection("Orders")
-        .add(AddOrder)
-        .then(() => {
-          alert("Order has been Added.");
-          History.replace("/");
-        })
-        .catch((e) => alert(e.message));
+      // db.collection("Orders")
+      //   .add(AddOrder)
+      //   .then(() => {
+      //     alert("Order has been Added.");
+      //     History.replace("/");
+      //   })
+      //   .catch((e) => alert(e.message));
     }
   };
 
